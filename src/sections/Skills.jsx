@@ -19,17 +19,25 @@ function SkillCard({ skill, color }) {
   return (
     <motion.div
       variants={fadeUp}
-      className="glass border border-[var(--border)] rounded-xl p-4 flex items-center gap-3 group card-hover cursor-default"
+      className="glass-card rounded-2xl p-4.5 flex items-center gap-3.5 group cursor-default"
       whileHover={{ borderColor: `${color}60` }}
     >
-      <span className="text-2xl select-none">{skill.icon}</span>
+      <div
+        className="w-10 h-10 rounded-xl flex items-center justify-center text-xl shrink-0"
+        style={{ background: `${color}15` }}
+      >
+        {skill.icon}
+      </div>
       <div className="flex-1 min-w-0">
-        <p className="text-sm font-semibold text-[var(--text-primary)] truncate">{skill.name}</p>
+        <div className="flex justify-between items-center mb-1">
+          <p className="text-sm font-bold text-slate-100 truncate group-hover:text-purple-300 transition-colors">{skill.name}</p>
+          <span className="text-xs font-mono font-semibold text-slate-400 shrink-0">{skill.level}%</span>
+        </div>
         {/* Skill bar */}
-        <div className="h-1 rounded-full bg-white/5 mt-1.5 overflow-hidden">
+        <div className="h-1.5 rounded-full bg-white/5 overflow-hidden">
           <motion.div
             className="h-full rounded-full"
-            style={{ background: `linear-gradient(90deg, ${color}, ${color}99)` }}
+            style={{ background: `linear-gradient(90deg, ${color}, ${color}dd)` }}
             initial={{ width: 0 }}
             whileInView={{ width: `${skill.level}%` }}
             viewport={{ once: true }}
@@ -37,7 +45,6 @@ function SkillCard({ skill, color }) {
           />
         </div>
       </div>
-      <span className="text-xs text-[var(--text-faint)] font-medium shrink-0">{skill.level}%</span>
     </motion.div>
   );
 }

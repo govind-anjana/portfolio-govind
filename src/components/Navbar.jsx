@@ -62,8 +62,8 @@ export default function Navbar() {
         transition={{ duration: 0.6, ease: 'easeOut' }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300
           ${scrolled
-            ? 'bg-[rgba(10,10,15,0.85)] backdrop-blur-xl border-b border-[var(--border)] shadow-lg shadow-black/20'
-            : 'bg-transparent'
+            ? 'glass-nav py-1 shadow-xl shadow-black/40'
+            : 'bg-transparent py-2'
           }`}
       >
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
@@ -71,19 +71,18 @@ export default function Navbar() {
           <a
             href="#hero"
             onClick={e => handleNav(e, '#hero')}
-            className="flex items-center gap-2 group"
+            className="flex items-center gap-2.5 group"
           >
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-600 to-blue-500 flex items-center justify-center shadow-lg shadow-violet-500/30">
-              <Code2 size={16} className="text-white" />
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-purple-600 via-indigo-600 to-blue-500 flex items-center justify-center shadow-lg shadow-purple-500/30 group-hover:scale-105 transition-transform">
+              <Code2 size={18} className="text-white" />
             </div>
-            <span className="font-bold text-lg text-[var(--text-primary)] group-hover:text-violet-400 transition-colors duration-200">
-              {personalInfo.name.split(' ')[0]}
-              <span className="gradient-text">.dev</span>
+            <span className="font-extrabold text-xl text-slate-100 group-hover:text-purple-400 transition-colors">
+              Govind<span className="gradient-text">.dev</span>
             </span>
           </a>
 
           {/* Desktop Links */}
-          <ul className="hidden md:flex items-center gap-1">
+          <ul className="hidden md:flex items-center gap-1 sm:gap-2 md:gap-4 lg:gap-6">
             {navLinks.map(link => {
               const isActive = activeSection === link.href.slice(1);
               return (
@@ -91,17 +90,17 @@ export default function Navbar() {
                   <a
                     href={link.href}
                     onClick={e => handleNav(e, link.href)}
-                    className={`relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200
+                    className={`relative px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 block
                       ${isActive
-                        ? 'text-violet-400'
-                        : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
+                        ? 'text-purple-400 font-semibold'
+                        : 'text-slate-300 hover:text-white'
                       }`}
                   >
                     {link.label}
                     {isActive && (
                       <motion.span
                         layoutId="nav-pill"
-                        className="absolute inset-0 rounded-lg bg-violet-500/10 border border-violet-500/20"
+                        className="absolute inset-0 rounded-lg bg-purple-500/15 border border-purple-500/30"
                         transition={{ type: 'spring', bounce: 0.2, duration: 0.4 }}
                       />
                     )}

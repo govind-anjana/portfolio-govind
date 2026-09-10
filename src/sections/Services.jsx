@@ -20,7 +20,7 @@ function ServiceCard({ service }) {
   return (
     <motion.div
       variants={fadeUp}
-      className="glass border border-[var(--border)] rounded-2xl p-6 group card-hover cursor-default flex flex-col gap-4"
+      className="glass-card rounded-2xl p-6 group cursor-default flex flex-col gap-4 relative overflow-hidden"
       whileHover={{ borderColor: `${service.color}50` }}
     >
       {/* Icon */}

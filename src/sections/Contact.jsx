@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Phone, Github, Linkedin, Twitter, Send, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Mail, MapPin, Phone, Send, CheckCircle2, AlertCircle } from 'lucide-react';
+import { GithubIcon, LinkedinIcon, TwitterIcon } from '../components/ui/SocialIcons';
 import SectionWrapper from '../components/SectionWrapper';
 import { personalInfo } from '../data';
 
 const socials = [
-  { icon: Github,   href: personalInfo.social.github,    label: 'GitHub',   color: '#ffffff' },
-  { icon: Linkedin, href: personalInfo.social.linkedin,  label: 'LinkedIn', color: '#0a66c2' },
-  { icon: Twitter,  href: personalInfo.social.twitter,   label: 'Twitter',  color: '#1da1f2' },
+  { icon: GithubIcon,   href: personalInfo.social.github,    label: 'GitHub',   color: '#ffffff' },
+  { icon: LinkedinIcon, href: personalInfo.social.linkedin,  label: 'LinkedIn', color: '#0a66c2' },
+  { icon: TwitterIcon,  href: personalInfo.social.twitter,   label: 'Twitter',  color: '#1da1f2' },
 ];
 
 const contactItems = [
@@ -115,34 +116,34 @@ export default function Contact() {
                 key={label}
                 href={href}
                 variants={fadeLeft}
-                className="flex items-center gap-4 glass border border-[var(--border)] rounded-2xl p-4 group card-hover"
+                className="flex items-center gap-4 glass-card rounded-2xl p-4.5 group border border-white/10"
               >
-                <div className="w-10 h-10 rounded-xl bg-violet-500/15 flex items-center justify-center shrink-0">
-                  <Icon size={18} className="text-violet-400" />
+                <div className="w-11 h-11 rounded-xl bg-purple-500/15 flex items-center justify-center shrink-0">
+                  <Icon size={20} className="text-purple-400" />
                 </div>
-                <div>
-                  <p className="text-xs text-[var(--text-faint)] uppercase tracking-wider mb-0.5">{label}</p>
-                  <p className="text-sm font-medium text-[var(--text-primary)] group-hover:text-violet-400 transition-colors">{value}</p>
+                <div className="min-w-0 flex-1">
+                  <p className="text-xs text-slate-400 uppercase tracking-wider mb-0.5 font-semibold">{label}</p>
+                  <p className="text-sm font-bold text-slate-100 group-hover:text-purple-300 transition-colors truncate">{value}</p>
                 </div>
               </motion.a>
             ))}
 
             {/* Social links */}
             <motion.div variants={fadeLeft} className="pt-2">
-              <p className="text-xs text-[var(--text-faint)] uppercase tracking-wider mb-4">Follow me</p>
+              <p className="text-xs text-slate-400 uppercase tracking-wider mb-3.5 font-semibold">Connect with Govind</p>
               <div className="flex gap-3">
-                {socials.map(({ icon: Icon, href, label, color }) => (
+                {socials.map(({ icon: Icon, href, label }) => (
                   <motion.a
                     key={label}
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={label}
-                    className="w-10 h-10 rounded-xl glass border border-[var(--border)] flex items-center justify-center text-[var(--text-muted)] hover:text-white hover:border-white/20 transition-all duration-200"
+                    className="w-11 h-11 rounded-xl glass-card border border-white/10 flex items-center justify-center text-slate-300 hover:text-purple-400 hover:border-purple-500/40 transition-all duration-200"
                     whileHover={{ scale: 1.1, y: -2 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    <Icon size={17} />
+                    <Icon size={18} />
                   </motion.a>
                 ))}
               </div>
@@ -151,14 +152,14 @@ export default function Contact() {
             {/* Availability card */}
             <motion.div
               variants={fadeLeft}
-              className="glass border border-emerald-400/20 rounded-2xl p-5"
+              className="glass-card border border-emerald-500/30 rounded-2xl p-5"
             >
               <div className="flex items-center gap-2 mb-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
-                <span className="text-sm font-semibold text-emerald-400">Currently Available</span>
+                <span className="text-sm font-bold text-emerald-400">Available for Freelance & Hire</span>
               </div>
-              <p className="text-xs text-[var(--text-muted)]">
-                I'm open to freelance projects, full-time roles, and consulting opportunities.
+              <p className="text-xs text-slate-300 leading-relaxed">
+                Need a Full Stack MERN Developer or React Specialist for your next project? Reach out directly via form or email.
               </p>
             </motion.div>
           </motion.div>
@@ -171,7 +172,7 @@ export default function Contact() {
             viewport={{ once: true, amount: 0.2 }}
             className="lg:col-span-3"
           >
-            <div className="glass border border-[var(--border)] rounded-2xl p-6 sm:p-8">
+            <div className="glass-card rounded-2xl p-6 sm:p-8 border border-white/10">
               {status === 'success' ? (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}

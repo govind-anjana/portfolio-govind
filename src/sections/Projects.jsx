@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, Github, Star } from 'lucide-react';
+import { ExternalLink, Star } from 'lucide-react';
+import { GithubIcon } from '../components/ui/SocialIcons';
 import SectionWrapper from '../components/SectionWrapper';
 import { projects } from '../data';
 
@@ -42,25 +43,15 @@ const cardAnim = {
 };
 
 function ProjectCard({ project }) {
-  const gradients = {
-    'from-violet-600 to-indigo-600':  'linear-gradient(135deg, #7c3aed, #4f46e5)',
-    'from-blue-600 to-cyan-500':      'linear-gradient(135deg, #2563eb, #06b6d4)',
-    'from-emerald-600 to-teal-500':   'linear-gradient(135deg, #059669, #14b8a6)',
-    'from-pink-600 to-rose-500':      'linear-gradient(135deg, #db2777, #f43f5e)',
-    'from-orange-600 to-amber-500':   'linear-gradient(135deg, #ea580c, #f59e0b)',
-    'from-purple-600 to-violet-500':  'linear-gradient(135deg, #9333ea, #7c3aed)',
-  };
-
   return (
     <motion.article
       variants={cardAnim}
-      className="glass border border-[var(--border)] rounded-2xl overflow-hidden group card-hover flex flex-col"
+      className="glass-card rounded-2xl overflow-hidden group flex flex-col border border-white/10"
     >
       {/* Project image / gradient placeholder */}
       <div className="relative h-44 overflow-hidden">
         <div
-          className="absolute inset-0 transition-transform duration-500 group-hover:scale-105"
-          style={{ background: gradients[project.gradient] || 'linear-gradient(135deg, #7c3aed, #3b82f6)' }}
+          className={`absolute inset-0 bg-gradient-to-r ${project.gradient} transition-transform duration-500 group-hover:scale-105 opacity-90`}
         />
         <div className="absolute inset-0 flex items-center justify-center">
           <span className="text-white/20 text-7xl font-black select-none">
@@ -125,7 +116,7 @@ function ProjectCard({ project }) {
             className="flex-1 border border-[rgba(255,255,255,0.12)] text-[var(--text-muted)] hover:text-white hover:border-white/30 text-xs font-semibold py-2.5 rounded-lg flex items-center justify-center gap-1.5 transition-all duration-200"
             id={`project-github-${project.id}`}
           >
-            <Github size={13} />
+            <GithubIcon size={13} />
             GitHub
           </a>
         </div>

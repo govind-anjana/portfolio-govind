@@ -1,4 +1,5 @@
-import { Github, Linkedin, Twitter, ArrowUp, Code2, Mail } from 'lucide-react';
+import { ArrowUp, Code2, Mail } from 'lucide-react';
+import { GithubIcon, LinkedinIcon, TwitterIcon } from './ui/SocialIcons';
 import { personalInfo } from '../data';
 
 const navLinks = [
@@ -12,10 +13,10 @@ const navLinks = [
 ];
 
 const socials = [
-  { icon: Github,   href: personalInfo.social.github,   label: 'GitHub'   },
-  { icon: Linkedin, href: personalInfo.social.linkedin, label: 'LinkedIn' },
-  { icon: Twitter,  href: personalInfo.social.twitter,  label: 'Twitter'  },
-  { icon: Mail,     href: `mailto:${personalInfo.email}`, label: 'Email'  },
+  { icon: GithubIcon,   href: personalInfo.social.github,   label: 'GitHub'   },
+  { icon: LinkedinIcon, href: personalInfo.social.linkedin, label: 'LinkedIn' },
+  { icon: TwitterIcon,  href: personalInfo.social.twitter,  label: 'Twitter'  },
+  { icon: Mail,         href: `mailto:${personalInfo.email}`, label: 'Email'  },
 ];
 
 export default function Footer() {
