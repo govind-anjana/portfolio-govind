@@ -1,5 +1,7 @@
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import BackgroundEffects from './components/BackgroundEffects';
+import ScrollProgress from './components/ScrollProgress';
 import Hero from './sections/Hero';
 import About from './sections/About';
 import Skills from './sections/Skills';
@@ -10,9 +12,11 @@ import Contact from './sections/Contact';
 
 export default function App() {
   return (
-    <div className="relative">
+    <div className="relative min-h-screen mesh-bg">
+      <BackgroundEffects />
+      <ScrollProgress />
       <Navbar />
-      <main>
+      <main className="relative z-10">
         <Hero />
         <div className="section-divider" />
         <About />

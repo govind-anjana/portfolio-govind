@@ -3,18 +3,19 @@ import { motion } from 'framer-motion';
 import { Mail, MapPin, Phone, Send, CheckCircle2, AlertCircle } from 'lucide-react';
 import { GithubIcon, LinkedinIcon, TwitterIcon } from '../components/ui/SocialIcons';
 import SectionWrapper from '../components/SectionWrapper';
+import SectionHeader from '../components/SectionHeader';
 import { personalInfo } from '../data';
 
 const socials = [
-  { icon: GithubIcon,   href: personalInfo.social.github,    label: 'GitHub',   color: '#ffffff' },
-  { icon: LinkedinIcon, href: personalInfo.social.linkedin,  label: 'LinkedIn', color: '#0a66c2' },
-  { icon: TwitterIcon,  href: personalInfo.social.twitter,   label: 'Twitter',  color: '#1da1f2' },
+  { icon: GithubIcon,   href: personalInfo.social.github,   label: 'GitHub'   },
+  { icon: LinkedinIcon, href: personalInfo.social.linkedin, label: 'LinkedIn' },
+  { icon: TwitterIcon,  href: personalInfo.social.twitter,  label: 'Twitter'  },
 ];
 
 const contactItems = [
-  { icon: Mail,    label: 'Email',    value: personalInfo.email,    href: `mailto:${personalInfo.email}` },
-  { icon: Phone,   label: 'Phone',    value: personalInfo.phone,    href: `tel:${personalInfo.phone}` },
-  { icon: MapPin,  label: 'Location', value: personalInfo.location, href: '#'                          },
+  { icon: Mail,   label: 'Email',    value: personalInfo.email,    href: `mailto:${personalInfo.email}` },
+  { icon: Phone,  label: 'Phone',    value: personalInfo.phone,    href: `tel:${personalInfo.phone}` },
+  { icon: MapPin, label: 'Location', value: personalInfo.location, href: '#' },
 ];
 
 function validate(form) {
@@ -33,17 +34,17 @@ const stagger = {
 };
 const fadeLeft = {
   hidden:  { opacity: 0, x: -30 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.55 } },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] } },
 };
 const fadeRight = {
   hidden:  { opacity: 0, x: 30 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.55 } },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] } },
 };
 
 export default function Contact() {
   const [form, setForm]       = useState({ name: '', email: '', message: '' });
   const [errors, setErrors]   = useState({});
-  const [status, setStatus]   = useState('idle'); // idle | sending | success | error
+  const [status, setStatus]   = useState('idle');
   const [touched, setTouched] = useState({});
 
   const handleChange = (e) => {
@@ -70,7 +71,6 @@ export default function Contact() {
     if (Object.keys(newErrors).length > 0) return;
 
     setStatus('sending');
-    // Simulate network request
     await new Promise(r => setTimeout(r, 1800));
     setStatus('success');
     setForm({ name: '', email: '', message: '' });
@@ -81,42 +81,28 @@ export default function Contact() {
   return (
     <SectionWrapper id="contact">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.55 }}
-          className="text-center mb-16"
-        >
-          <span className="text-xs font-semibold uppercase tracking-[0.2em] text-violet-400 mb-3 block">
-            Let's work together
-          </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
-            Get In <span className="gradient-text">Touch</span>
-          </h2>
-          <div className="w-16 h-1 bg-gradient-to-r from-violet-600 to-blue-500 rounded-full mx-auto mb-4" />
-          <p className="text-[var(--text-muted)] max-w-xl mx-auto text-sm sm:text-base">
-            Have a project in mind or want to chat? I'd love to hear from you. I usually reply within 24 hours.
-          </p>
-        </motion.div>
+        <SectionHeader
+          label="Let's Work Together"
+          title="Get In"
+          highlight="Touch"
+          description="Have a project in mind or want to chat? I'd love to hear from you. I usually reply within 24 hours."
+        />
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12">
-          {/* Left: contact info */}
           <motion.div
             variants={stagger}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
-            className="lg:col-span-2 space-y-6"
+            className="lg:col-span-2 space-y-5"
           >
-            {/* Contact items */}
             {contactItems.map(({ icon: Icon, label, value, href }) => (
               <motion.a
                 key={label}
                 href={href}
                 variants={fadeLeft}
-                className="flex items-center gap-4 glass-card rounded-2xl p-4.5 group border border-white/10"
+                className="flex items-center gap-4 glass-card rounded-2xl p-4 group border border-white/10"
+                whileHover={{ x: 6, borderColor: 'rgba(168, 85, 247, 0.3)' }}
               >
                 <div className="w-11 h-11 rounded-xl bg-purple-500/15 flex items-center justify-center shrink-0">
                   <Icon size={20} className="text-purple-400" />
@@ -128,7 +114,6 @@ export default function Contact() {
               </motion.a>
             ))}
 
-            {/* Social links */}
             <motion.div variants={fadeLeft} className="pt-2">
               <p className="text-xs text-slate-400 uppercase tracking-wider mb-3.5 font-semibold">Connect with Govind</p>
               <div className="flex gap-3">
@@ -140,7 +125,7 @@ export default function Contact() {
                     rel="noopener noreferrer"
                     aria-label={label}
                     className="w-11 h-11 rounded-xl glass-card border border-white/10 flex items-center justify-center text-slate-300 hover:text-purple-400 hover:border-purple-500/40 transition-all duration-200"
-                    whileHover={{ scale: 1.1, y: -2 }}
+                    whileHover={{ scale: 1.12, y: -3 }}
                     whileTap={{ scale: 0.95 }}
                   >
                     <Icon size={18} />
@@ -149,10 +134,10 @@ export default function Contact() {
               </div>
             </motion.div>
 
-            {/* Availability card */}
             <motion.div
               variants={fadeLeft}
               className="glass-card border border-emerald-500/30 rounded-2xl p-5"
+              whileHover={{ borderColor: 'rgba(52, 211, 153, 0.5)' }}
             >
               <div className="flex items-center gap-2 mb-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
@@ -164,7 +149,6 @@ export default function Contact() {
             </motion.div>
           </motion.div>
 
-          {/* Right: form */}
           <motion.div
             variants={fadeRight}
             initial="hidden"
@@ -172,28 +156,35 @@ export default function Contact() {
             viewport={{ once: true, amount: 0.2 }}
             className="lg:col-span-3"
           >
-            <div className="glass-card rounded-2xl p-6 sm:p-8 border border-white/10">
+            <div className="glass-card rounded-2xl p-6 sm:p-8 border border-white/10 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-purple-600/5 rounded-full blur-3xl pointer-events-none" />
+
               {status === 'success' ? (
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
+                  initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
+                  transition={{ type: 'spring', stiffness: 300 }}
                   className="flex flex-col items-center justify-center py-12 text-center"
                 >
-                  <div className="w-16 h-16 rounded-full bg-emerald-400/15 flex items-center justify-center mb-4">
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: 'spring', delay: 0.1 }}
+                    className="w-16 h-16 rounded-full bg-emerald-400/15 flex items-center justify-center mb-4"
+                  >
                     <CheckCircle2 size={32} className="text-emerald-400" />
-                  </div>
-                  <h3 className="text-xl font-bold text-[var(--text-primary)] mb-2">Message Sent!</h3>
-                  <p className="text-[var(--text-muted)] text-sm max-w-xs">
+                  </motion.div>
+                  <h3 className="text-xl font-bold text-slate-100 mb-2">Message Sent!</h3>
+                  <p className="text-slate-400 text-sm max-w-xs">
                     Thanks for reaching out. I'll get back to you within 24 hours.
                   </p>
                 </motion.div>
               ) : (
-                <form onSubmit={handleSubmit} noValidate className="space-y-5">
-                  <h3 className="text-lg font-bold text-[var(--text-primary)] mb-6">Send a Message</h3>
+                <form onSubmit={handleSubmit} noValidate className="space-y-5 relative z-10">
+                  <h3 className="text-lg font-bold text-slate-100 mb-6">Send a Message</h3>
 
-                  {/* Name */}
                   <div>
-                    <label htmlFor="contact-name" className="block text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wider mb-2">
+                    <label htmlFor="contact-name" className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
                       Full Name *
                     </label>
                     <input
@@ -213,9 +204,8 @@ export default function Contact() {
                     )}
                   </div>
 
-                  {/* Email */}
                   <div>
-                    <label htmlFor="contact-email" className="block text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wider mb-2">
+                    <label htmlFor="contact-email" className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
                       Email Address *
                     </label>
                     <input
@@ -235,9 +225,8 @@ export default function Contact() {
                     )}
                   </div>
 
-                  {/* Message */}
                   <div>
-                    <label htmlFor="contact-message" className="block text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wider mb-2">
+                    <label htmlFor="contact-message" className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
                       Message *
                     </label>
                     <textarea
@@ -256,13 +245,10 @@ export default function Contact() {
                           <AlertCircle size={11} /> {errors.message}
                         </p>
                       ) : <span />}
-                      <span className="text-xs text-[var(--text-faint)] shrink-0">
-                        {form.message.length} chars
-                      </span>
+                      <span className="text-xs text-slate-500 shrink-0">{form.message.length} chars</span>
                     </div>
                   </div>
 
-                  {/* Submit */}
                   <motion.button
                     id="contact-submit-btn"
                     type="submit"

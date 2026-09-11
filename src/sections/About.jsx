@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
 import { MapPin, Briefcase, GraduationCap, Award, CheckCircle } from 'lucide-react';
 import SectionWrapper from '../components/SectionWrapper';
+import SectionHeader from '../components/SectionHeader';
+import AnimatedCounter from '../components/AnimatedCounter';
 import { personalInfo, stats } from '../data';
 
 const stagger = {
@@ -13,54 +15,24 @@ const fadeUp = {
 };
 
 const highlights = [
-  {
-    icon: Briefcase,
-    title: 'Experience',
-    value: '2+ Years',
-    desc: 'Building Web & MERN Stack Apps',
-    color: '#a855f7',
-  },
-  {
-    icon: GraduationCap,
-    title: 'Education',
-    value: 'Computer Science / Tech',
-    desc: 'Graduate / Developer Training',
-    color: '#3b82f6',
-  },
-  {
-    icon: Award,
-    title: 'Focus Area',
-    value: 'Full Stack MERN',
-    desc: 'React, Node, Express & MongoDB',
-    color: '#10b981',
-  },
-  {
-    icon: MapPin,
-    title: 'Location',
-    value: personalInfo.location,
-    desc: 'Available for Remote & Onsite',
-    color: '#f59e0b',
-  },
+  { icon: Briefcase,    title: 'Experience', value: '2+ Years',              desc: 'Building Web & MERN Stack Apps', color: '#a855f7' },
+  { icon: GraduationCap, title: 'Education',  value: 'Computer Science / Tech', desc: 'Graduate / Developer Training', color: '#3b82f6' },
+  { icon: Award,        title: 'Focus Area', value: 'Full Stack MERN',        desc: 'React, Node, Express & MongoDB', color: '#10b981' },
+  { icon: MapPin,       title: 'Location',   value: personalInfo.location,    desc: 'Available for Remote & Onsite', color: '#f59e0b' },
 ];
 
 export default function About() {
   return (
     <SectionWrapper id="about" className="bg-[var(--bg-surface)]">
       <div className="max-w-7xl mx-auto">
-        {/* Section Header */}
-        <motion.div variants={fadeUp} className="text-center mb-16">
-          <span className="text-xs font-semibold uppercase tracking-[0.25em] text-purple-400 mb-3 block">
-            Discover My Background
-          </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-4">
-            About <span className="gradient-text">Me</span>
-          </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full mx-auto" />
-        </motion.div>
+        <SectionHeader
+          label="Discover My Background"
+          title="About"
+          highlight="Me"
+          description="Passionate about turning complex ideas into elegant, production-ready web applications."
+        />
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          
-          {/* Bio Side */}
           <motion.div
             className="lg:col-span-6 space-y-6"
             variants={stagger}
@@ -68,8 +40,8 @@ export default function About() {
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
           >
-            <motion.h3 variants={fadeUp} className="text-2xl sm:text-3xl font-bold text-slate-100 leading-snug">
-              Passionate Web Developer Crafting <br />
+            <motion.h3 variants={fadeUp} className="text-2xl sm:text-3xl font-bold text-slate-100 leading-snug" style={{ fontFamily: 'Syne, sans-serif' }}>
+              Passionate Web Developer Crafting{' '}
               <span className="gradient-text">Scalable MERN Solutions</span>
             </motion.h3>
 
@@ -80,7 +52,6 @@ export default function About() {
               {personalInfo.bio2}
             </motion.p>
 
-            {/* Core Competencies Checklist */}
             <motion.div variants={fadeUp} className="grid grid-cols-2 gap-3 pt-2">
               {[
                 'MERN Stack Architecture',
@@ -88,18 +59,22 @@ export default function About() {
                 'RESTful API Development',
                 'State Management (Redux/Context)',
                 'Clean & Maintainable Code',
-                'Git & GitHub Workflow'
+                'Git & GitHub Workflow',
               ].map(item => (
-                <div key={item} className="flex items-center gap-2 text-xs sm:text-sm text-slate-200">
+                <motion.div
+                  key={item}
+                  className="flex items-center gap-2 text-xs sm:text-sm text-slate-200"
+                  whileHover={{ x: 4 }}
+                  transition={{ type: 'spring', stiffness: 400 }}
+                >
                   <CheckCircle size={15} className="text-emerald-400 shrink-0" />
                   <span>{item}</span>
-                </div>
+                </motion.div>
               ))}
             </motion.div>
 
-            {/* Direct contact action buttons */}
             <motion.div variants={fadeUp} className="flex flex-wrap gap-4 pt-4">
-              <a
+              <motion.a
                 id="about-hire-btn"
                 href="#contact"
                 onClick={e => {
@@ -108,20 +83,23 @@ export default function About() {
                   if (t) window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
                 }}
                 className="btn-primary text-white font-semibold px-6 py-3 rounded-xl text-sm cursor-pointer"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
               >
                 Hire Me Now
-              </a>
-              <a
+              </motion.a>
+              <motion.a
                 id="about-email-btn"
                 href={`mailto:${personalInfo.email}`}
                 className="btn-secondary text-slate-200 font-semibold px-6 py-3 rounded-xl text-sm cursor-pointer"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
               >
                 Email Govind
-              </a>
+              </motion.a>
             </motion.div>
           </motion.div>
 
-          {/* Cards & Stats Side */}
           <div className="lg:col-span-6 space-y-6">
             <motion.div
               className="grid grid-cols-1 sm:grid-cols-2 gap-4"
@@ -135,7 +113,12 @@ export default function About() {
                   key={title}
                   variants={fadeUp}
                   className="glass-card rounded-2xl p-5 border border-white/10 relative overflow-hidden group"
+                  whileHover={{ y: -6 }}
                 >
+                  <div
+                    className="absolute top-0 right-0 w-24 h-24 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    style={{ background: `${color}20` }}
+                  />
                   <div
                     className="w-10 h-10 rounded-xl flex items-center justify-center mb-3"
                     style={{ background: `${color}20` }}
@@ -149,7 +132,6 @@ export default function About() {
               ))}
             </motion.div>
 
-            {/* Stats Bar */}
             <motion.div
               className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-2"
               variants={stagger}
@@ -162,18 +144,16 @@ export default function About() {
                   key={label}
                   variants={fadeUp}
                   className="glass-card rounded-2xl p-4 text-center border border-white/10"
+                  whileHover={{ scale: 1.04 }}
                 >
                   <p className="text-2xl sm:text-3xl font-extrabold gradient-text mb-1">
-                    {value}
+                    <AnimatedCounter value={value} />
                   </p>
-                  <p className="text-[11px] text-slate-400 font-medium leading-tight">
-                    {label}
-                  </p>
+                  <p className="text-[11px] text-slate-400 font-medium leading-tight">{label}</p>
                 </motion.div>
               ))}
             </motion.div>
           </div>
-
         </div>
       </div>
     </SectionWrapper>
